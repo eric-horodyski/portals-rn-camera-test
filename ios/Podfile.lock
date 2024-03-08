@@ -1,5 +1,8 @@
 PODS:
   - boost (1.83.0)
+  - Capacitor (5.7.0):
+    - CapacitorCordova
+  - CapacitorCordova (5.7.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.73.5)
@@ -71,6 +74,10 @@ PODS:
   - hermes-engine (0.73.5):
     - hermes-engine/Pre-built (= 0.73.5)
   - hermes-engine/Pre-built (0.73.5)
+  - IonicLiveUpdates (0.4.1)
+  - IonicPortals (0.8.0):
+    - Capacitor (~> 5.0)
+    - IonicLiveUpdates (< 0.5.0, >= 0.1.2)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2022.05.16.00):
@@ -1111,6 +1118,10 @@ PODS:
     - React-jsi (= 0.73.5)
     - React-logger (= 0.73.5)
     - React-perflogger (= 0.73.5)
+  - ReactNativePortals (0.5.1):
+    - IonicLiveUpdates (~> 0.4.0)
+    - IonicPortals (~> 0.8.0)
+    - React-Core
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
 
@@ -1187,10 +1198,13 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "ReactNativePortals (from `../node_modules/@ionic/portals-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - Capacitor
+    - CapacitorCordova
     - CocoaAsyncSocket
     - Flipper
     - Flipper-Boost-iOSX
@@ -1201,6 +1215,8 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - FlipperKit
     - fmt
+    - IonicLiveUpdates
+    - IonicPortals
     - libevent
     - OpenSSL-Universal
     - SocketRocket
@@ -1301,11 +1317,15 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativePortals:
+    :path: "../node_modules/@ionic/portals-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
+  Capacitor: e49b9f234269c568a1a0e686d32a61893a20b2e4
+  CapacitorCordova: 0ebf034c4724141dc9a2176fb6c61466815177d0
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   FBLazyVector: 56e0e498dbb513b96c40bac6284729ba4e62672d
@@ -1321,6 +1341,8 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   hermes-engine: 1d1835b2cc54c381909d94d1b3c8e0a2f1a94a0e
+  IonicLiveUpdates: 6fbb00e7cf563474253092bedd2d3abd9e846e6d
+  IonicPortals: 03ff0375e2631857221de7696e89f90f55d36949
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
@@ -1364,9 +1386,10 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 814b644a5f456c7df1fba7bcd9914707152527c6
   React-utils: 987a4526a2fc0acdfaf87888adfe0bf9d0452066
   ReactCommon: 2947b0bffd82ea0e58ca7928881152d4c6dae9af
+  ReactNativePortals: fbb536e22292dd0ce7febfd4cb7ae6dcddcd0401
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 9e6a04eacbd94f97d94577017e9f23b3ab41cf6c
 
-PODFILE CHECKSUM: 78d20a32ed70f019347dbd0d9a68f5dc999ab408
+PODFILE CHECKSUM: d4dafe4c6ffc81cf2df351bb31e54a2f5d99c881
 
 COCOAPODS: 1.14.3

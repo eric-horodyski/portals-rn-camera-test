@@ -2,7 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 
-@implementation AppDelegate
+@implementation RNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

@@ -25,6 +25,21 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+dynamic_frameworks = ['Capacitor', 'CapacitorCordova']
+
+pre_install do |installer|
+	installer.pod_targets.each do |pod|
+		if dynamic_frameworks.include?(pod.name)
+			def pod.static_framework?
+				false
+			end
+			def pod.build_type
+				Pod::BuildType.dynamic_framework
+			end
+		end
+	end
+end
+
 target 'PortalsDemo' do
   config = use_native_modules!
 

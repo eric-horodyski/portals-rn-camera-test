@@ -5,11 +5,17 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
+  Portal,
+  PortalView,
+  addPortal,
+  register,
+  subscribe,
+} from '@ionic/portals-react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  EmitterSubscription,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -17,102 +23,65 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const KEY = '';
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+const PORTAL: Portal = {name: 'debug', startDir: 'debug'};
+
+const LoadingView = () => (
+  <View style={[styles.flex, styles.debug]}>
+    <Text>Loading....</Text>
+  </View>
+);
+
+const App = (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
+  const [loading, setLoading] = useState<boolean>(true);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const subRef = useRef<EmitterSubscription | null>(null);
+
+  const printData = (data: any) => {
+    console.log('Message data', data);
+    console.log(`Message stringified ${JSON.stringify(data)}`);
+    console.log(`data === null ? ${data === JSON.parse(data)}`);
+    console.log(`!data ? ${!JSON.parse(data)}`);
+  };
+
+  useEffect(() => {
+    register(KEY)
+      .then(() => addPortal(PORTAL))
+      .then(() => setLoading(false))
+      .then(() => {
+        subRef.current = subscribe('debug', ({data}) => printData(data));
+      });
+    return () => {
+      subRef.current?.remove();
+    };
+  }, []);
+
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={[backgroundStyle, styles.flex]}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+
+      {loading ? (
+        <LoadingView />
+      ) : (
+        <PortalView style={styles.flex} portal={PORTAL} />
+      )}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  flex: {flex: 1},
+  debug: {backgroundColor: 'red'},
 });
 
 export default App;

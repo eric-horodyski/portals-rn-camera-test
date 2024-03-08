@@ -77,7 +77,7 @@ android {
     namespace "com.portalsdemo"
     defaultConfig {
         applicationId "com.portalsdemo"
-        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 22
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
@@ -117,3 +117,11 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+task CopyWebAssets(type: Copy) {
+    def webBuildFolder = '../../../web/dist'
+    from webBuildFolder
+    into layout.projectDirectory.dir("src/main/assets/debug")
+}
+
+preBuild.dependsOn(CopyWebAssets)
