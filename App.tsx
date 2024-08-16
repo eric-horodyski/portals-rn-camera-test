@@ -25,9 +25,17 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-const KEY = '';
-
-const PORTAL: Portal = {name: 'debug', startDir: 'debug'};
+const KEY = 'your_key_here';
+const PORTAL: Portal = {
+  name: 'debug',
+  startDir: 'debug',
+  plugins: [
+    {
+      androidClassPath: 'com.capacitorjs.plugins.camera.CameraPlugin',
+      iosClassName: 'CAPCameraPlugin',
+    },
+  ],
+};
 
 const LoadingView = () => (
   <View style={[styles.flex, styles.debug]}>
@@ -45,10 +53,7 @@ const App = (): React.JSX.Element => {
   const subRef = useRef<EmitterSubscription | null>(null);
 
   const printData = (data: any) => {
-    console.log('Message data', data);
-    console.log(`Message stringified ${JSON.stringify(data)}`);
     console.log(`data === null ? ${data === JSON.parse(data)}`);
-    console.log(`!data ? ${!JSON.parse(data)}`);
   };
 
   useEffect(() => {

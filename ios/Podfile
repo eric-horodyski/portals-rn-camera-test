@@ -54,6 +54,8 @@ target 'PortalsDemo' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'CapacitorCamera'
+
   target 'PortalsDemoTests' do
     inherit! :complete
     # Pods for testing
